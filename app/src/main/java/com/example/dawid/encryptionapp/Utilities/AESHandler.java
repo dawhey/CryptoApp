@@ -22,7 +22,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class AESHandler {
 
     public static byte[] Key;
-    private byte[] IV;
+    public static byte[] IV;
 
     private SecretKeySpec keySpec;
     private IvParameterSpec ivSpec;

@@ -36,9 +36,10 @@ public class JSONHandler {
             //removing new line character from message
             StringBuilder message = FIleHandler.getMessage();
             json.put("message",message.substring(0, message.length() -1) );
-            if (AESHandler.isEncrypted)
+            if (AESHandler.isEncrypted) {
                 json.put("key", AESHandler.Key);
-
+                json.put("iv", AESHandler.IV);
+            }
             post.setHeader("json", json.toString());
             StringEntity se = new StringEntity(json.toString());
             se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE,"application/json"));
