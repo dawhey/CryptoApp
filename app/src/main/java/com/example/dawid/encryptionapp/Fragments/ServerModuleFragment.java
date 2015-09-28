@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.dawid.encryptionapp.R;
+import com.example.dawid.encryptionapp.Utilities.AESHandler;
 import com.example.dawid.encryptionapp.Utilities.FIleHandler;
 import com.example.dawid.encryptionapp.Utilities.JSONHandler;
 
@@ -23,6 +24,7 @@ public class ServerModuleFragment extends Fragment {
 
     private ProgressBar progBar;
     public static String ipAddress;
+    private boolean isServerEncrypted = false;
 
 
     @Nullable
@@ -39,8 +41,13 @@ public class ServerModuleFragment extends Fragment {
         encryptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EncryptTask encryptTask = new EncryptTask();
-                encryptTask.execute();
+                if (AESHandler.isEncrypted)
+                    Toast.makeText(getActivity(), "Message is already encrypted.", Toast.LENGTH_SHORT).show();
+                else {
+                    EncryptTask encryptTask = new EncryptTask();
+                    encryptTask.execute();
+                    isServerEncrypted = true;
+                }
             }
         });
 
