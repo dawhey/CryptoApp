@@ -2,6 +2,8 @@ package com.example.dawid.encryptionapp.Utilities;
 
 import android.util.Log;
 
+import com.example.dawid.encryptionapp.Fragments.ServerModuleFragment;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;

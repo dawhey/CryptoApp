@@ -24,7 +24,7 @@ public class ServerModuleFragment extends Fragment {
 
     private ProgressBar progBar;
     public static String ipAddress;
-    private boolean isServerEncrypted = false;
+    public static boolean isServerEncrypted = false;
 
 
     @Nullable
@@ -46,7 +46,6 @@ public class ServerModuleFragment extends Fragment {
                 else {
                     EncryptTask encryptTask = new EncryptTask();
                     encryptTask.execute();
-                    isServerEncrypted = true;
                 }
             }
         });
@@ -95,6 +94,7 @@ public class ServerModuleFragment extends Fragment {
             else {
                 FIleHandler.saveMessage(encryptedMessage);
                 Toast.makeText(getActivity(), "Server encryption successful.", Toast.LENGTH_SHORT).show();
+                ServerModuleFragment.isServerEncrypted = true;
             }
             progBar.setVisibility(View.INVISIBLE);
         }
