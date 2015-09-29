@@ -82,17 +82,17 @@ public class AESHandler {
         byte[] base64encodedSecretData = Base64.encode(cipherText, Base64.DEFAULT);
 
         String encryptedMessage = new String(base64encodedSecretData);
-        String ivHex = FIleHandler.bytesToHex(IV);
+        String ivB64 = new String(Base64.encode(IV, Base64.DEFAULT));
 
-        return encryptedMessage+ivHex;
+        return encryptedMessage.substring(0, encryptedMessage.length()-1)+ivB64;
     }
 
     public String decryptLocally(String encryptedMessage) throws BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException, InvalidKeyException, UnsupportedEncodingException {
 
-        String ivHex = encryptedMessage.substring(encryptedMessage.length() - 33, encryptedMessage.length() - 1);
-        encryptedMessage = encryptedMessage.substring(0, encryptedMessage.length() - 34);
+        String ivB64 = encryptedMessage.substring(encryptedMessage.length() - 25, encryptedMessage.length() - 1);
+        encryptedMessage = encryptedMessage.substring(0, encryptedMessage.length() - 25);
 
-        IV = FIleHandler.hexToBytes(ivHex);
+        IV = Base64.decode(ivB64.getBytes(), Base64.DEFAULT);
         ivSpec = new IvParameterSpec(IV);
 
         byte[] decodedValue = Base64.decode(encryptedMessage.getBytes(), Base64.DEFAULT);

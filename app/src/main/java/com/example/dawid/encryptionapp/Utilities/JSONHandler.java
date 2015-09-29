@@ -1,5 +1,6 @@
 package com.example.dawid.encryptionapp.Utilities;
 
+import android.util.Base64;
 import android.util.Log;
 
 import com.example.dawid.encryptionapp.Fragments.ServerModuleFragment;
@@ -39,8 +40,7 @@ public class JSONHandler {
             StringBuilder message = FIleHandler.getMessage();
             json.put("message",message.substring(0, message.length() -1) );
             if (AESHandler.isEncrypted) {
-                json.put("key", AESHandler.Key);
-                json.put("iv", AESHandler.IV);
+                json.put("key", FIleHandler.bytesToHex(AESHandler.Key));
             }
             post.setHeader("json", json.toString());
             StringEntity se = new StringEntity(json.toString());
